@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--02-new-1：可以直接引入外部文件-->
+    <properties resource="db.properties">
+        <!--可以在其中增加一些属性配置，但如果两个文件有同一个字段，优先实用外部配置文件的！-->
+        <property name="username" value="root"/>
+        <property name="password" value="1111"/>
+    </properties>
+
+    <!--02-new-2：通过配置改变 MyBatis 的运行时行为-->
+    <settings>
+        <!--<setting name="logImpl" value="STDOUT_LOGGING"/>-->
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+    <!--02-new-3：可以给实体类起别名-->
+    <typeAliases>
+        <!--<typeAlias type="com.pojo.User" alias="user"/>-->
+        <!--03-new-3: 指定包起别名，默认是类名小写-->
+        <package name="com.pojo"/>
+    </typeAliases>
+
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--每一个Mapper.xml都需要在Mybatis核心配置文件中注册-->
+    <mappers>
+        <!--resourc 路径一定要用/// 不能用...-->
+        <mapper resource="com/dao/UserMapper.xml"/>
+        <mapper resource="com/dao/TeacherMapper.xml"/>
+        <mapper resource="com/dao/StudentMapper.xml"/>
+        <!--02-new-4：使用接口绑定注册，接口和他的Mapper配置文件必须同名，且必须在同一个包下-->
+        <!--<mapper class="com.dao.UserMapper"/>-->
+        <!--02-new-4：使用扫描包进行注入绑定，接口和他的Mapper配置文件必须同名，且必须在同一个包下-->
+        <!--<package name="com.dao"/>-->
+    </mappers>
+</configuration>

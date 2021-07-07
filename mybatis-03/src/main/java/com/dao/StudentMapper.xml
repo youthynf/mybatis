@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace=绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.dao.StudentDao">
+    <!--多对一：按结果集映射-->
+    <select id="getStudentWithTeacher" resultMap="studentTeacher">
+        select s.id sid,s.name sname,t.name tname
+        from student s,teacher t
+        where s.tid = t.id;
+    </select>
+    <resultMap id="studentTeacher" type="student">
+        <result property="id" column="sid"/>
+        <result property="name" column="sname"/>
+        <association property="teacher" javaType="teacher">
+            <result property="name" column="tname"/>
+        </association>
+    </resultMap>
+
+    <!--多对一：按查询映射-->
+    <select id="getStudentWithTeacher2" resultMap="studentTeacher2">
+        select * from student
+    </select>
+    <resultMap id="studentTeacher2" type="student">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <!--column是用来关联teacher记录的外键字段-->
+        <association property="teacher" javaType="teacher" select="getTeacherByStudentTid" column="tid"/>
+    </resultMap>
+    <select id="getTeacherByStudentTid" resultType="teacher">
+        select * from teacher where id = #{tid}
+    </select>
+</mapper>
+

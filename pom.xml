@@ -11,6 +11,7 @@
     <modules>
         <module>mybatis-01</module>
         <module>mybatis-02</module>
+        <module>mybatis-03</module>
     </modules>
 
     <dependencies>
@@ -38,6 +39,13 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

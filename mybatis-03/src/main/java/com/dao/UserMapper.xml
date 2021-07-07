@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace=绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.dao.UserDao">
+    <!--02-new-5：结果集映射-->
+    <resultMap id="userResultMap" type="user">
+        <!--column数据库中的字段，property实体类中的属性-->
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pwd" property="password"/>
+    </resultMap>
+    
+    <!-- id对应方法名， resultType=绑定返回类型 -->
+    <!--02-new-3：使用别名之后，直接使用user替代com.pojo.User-->
+    <select id="getUserList" resultMap="userResultMap">
+        select * from mybatis.user
+    </select>
+</mapper>
+
